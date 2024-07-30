@@ -31,5 +31,5 @@ target_link_libraries(contourfinder
     pqxx
 )
 
-add_executable(contours src/main.cpp)
+add_executable(contours WIN32 src/main.cpp)
 target_link_libraries(contours contourfinder)

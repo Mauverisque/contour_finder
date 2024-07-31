@@ -227,18 +227,18 @@ void MainWindow::createMenus() {
 }
 
 void MainWindow::createLayout() {
-  QVBoxLayout *v_main_layout = new QVBoxLayout{this};
+  QVBoxLayout *v_main_layout = new QVBoxLayout{};
   v_main_layout->addSpacing(10);
   v_main_layout->addWidget(stacked_labels, 0, Qt::AlignCenter);
   stacked_labels->setMinimumHeight(this->height() / 2);
-  QHBoxLayout *h_tables_layout = new QHBoxLayout{this};
+  QHBoxLayout *h_tables_layout = new QHBoxLayout{};
   h_tables_layout->addSpacing(50);
-  QVBoxLayout *v_found_contours_table_layout = new QVBoxLayout{this};
+  QVBoxLayout *v_found_contours_table_layout = new QVBoxLayout{};
   v_found_contours_table_layout->addWidget(show_contours_button);
   v_found_contours_table_layout->addWidget(found_contours_table);
   h_tables_layout->addLayout(v_found_contours_table_layout);
   h_tables_layout->addSpacing(50);
-  QVBoxLayout *v_saved_contours_table_layout = new QVBoxLayout{this};
+  QVBoxLayout *v_saved_contours_table_layout = new QVBoxLayout{};
   v_saved_contours_table_layout->addWidget(save_contours_button);
   v_saved_contours_table_layout->addWidget(saved_contours_table);
   h_tables_layout->addLayout(v_saved_contours_table_layout);

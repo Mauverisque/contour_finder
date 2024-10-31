@@ -76,23 +76,14 @@ getContoursFromDb(pqxx::connection &conn, const std::string &img_name) {
 
   std::vector<std::pair<int, std::string>> added_contours{};
   if (!res.empty()) {
-    // Parser objects are used to extract arrays' data.
-    pqxx::array_parser number_parser = res[0][0].as_array();
-    pqxx::array_parser name_parser = res[0][1].as_array();
+    // Element type cannot be deduced so it needs to be explicitly stated in the
+    // function call
+    pqxx::array<int> num_array = res[0][0].as_sql_array<int>();
+    pqxx::array<std::string> name_array = res[0][1].as_sql_array<std::string>();
 
-    // Array data extracted via parser has std::string type.
-    // Non-string data requires further conversion.
-    std::pair<pqxx::array_parser::juncture, std::string> number_elem;
-    std::pair<pqxx::array_parser::juncture, std::string> name_elem;
-
-    do {
-      // Iterating over arrays.
-      number_elem = number_parser.get_next();
-      name_elem = name_parser.get_next();
-      if (number_elem.first == pqxx::array_parser::juncture::string_value) {
-        added_contours.push_back({stoi(number_elem.second), name_elem.second});
-      }
-    } while (number_elem.first != pqxx::array_parser::juncture::done);
+    for (size_t i = 0; i != num_array.size(); ++i) {
+      added_contours.push_back({num_array[i], name_array[i]});
+    }
   }
 
   return added_contours;
